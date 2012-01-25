@@ -948,13 +948,13 @@ public abstract class AutomatonSpecification implements Cloneable  {
         ArrayList<State> allFinalStates = new ArrayList<State>();
         ArrayList<State> allStates = new ArrayList<State>();
 
-        for (State someState : allStates) {
+        int size = 0;
+        for (State someState : allStates()) {
             if (isFinal(someState)) {
-                allFinalStates.add(someState);
+                size++;
             }
         }
-
-        int size = allFinalStates.size();
+        
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         switch (size) {
@@ -969,13 +969,14 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 spec = clone();
                 State stateFinal = spec.addState();
                 allStates.addAll(spec.allStates());
-                for (State someState : allFinalStates) {
+                for (State someState : spec.allStates()) {
+                    if (spec.isFinal(someState)){
                     spec.unmarkAsFinalState(someState);
                     spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
-                    return spec;
+                    }
                 }
+                return spec;
         }
-        return null;
     }
 
     protected List<State> getFinalStates() {
