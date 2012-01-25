@@ -945,7 +945,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
      */
     public AutomatonSpecification makeOneFinalStateAutomaton() {
-        ArrayList<State> allFinalStates = new ArrayList<State>();
         ArrayList<State> allStates = new ArrayList<State>();
 
         int size = 0;
@@ -954,7 +953,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 size++;
             }
         }
-        
+
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         switch (size) {
@@ -969,7 +968,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 spec = clone();
                 State stateFinal = spec.addState();
                 allStates.addAll(spec.allStates());
-                for (State someState : spec.allStates()) {
+                for (State someState : spec.allStates()){
                     if (spec.isFinal(someState)){
                     spec.unmarkAsFinalState(someState);
                     spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
