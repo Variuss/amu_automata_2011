@@ -968,8 +968,8 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 spec = clone();
                 State stateFinal = spec.addState();
                 allStates.addAll(spec.allStates());
-                for (State someState : spec.allStates()){
-                    if (spec.isFinal(someState)){
+                for (State someState : spec.allStates()) {
+                    if (spec.isFinal(someState)) {
                     spec.unmarkAsFinalState(someState);
                     spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
                     }
